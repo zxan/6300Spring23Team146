@@ -2,7 +2,7 @@
 ## Individual Design
 ###### Design 1
 qmillender3
-![qmillender3](./images/qmillenderdesign.png)
+![qmillender3](./images/qmillenderdesign.PNG)
 Pro
 Using a key(username) to map with job information
 -this allows the current job to be stored in a hashmap. This creates the process of only updating the key in the hashmap when a current job is edited. This works for space because the hashmap does not allow duplicates 
@@ -27,7 +27,7 @@ User classes may be outside of requirements
  
 ###### Design 2
 jjia66
-![jjia66](./images/jiadesign.png)
+![jjia66](./images/jiadesign.PNG)
 Pro
 Simple design
 -The design is very simple and concise. It captures all the needed requirements and functionality in a three class design.
@@ -46,7 +46,7 @@ Does not have to store score in job
   
 ###### Design 3
 nli311
-![nli311](./images/nlidesign.png)
+![nli311](./images/nlidesign.PNG)
 Pro
 Appropriate use of relationships
 -Design uses stronger relationships than the other. The relationship shows that certain classes can not exist without other classes. The relationships help make sure we have the correct between classes. 
@@ -63,7 +63,7 @@ Needs to explore the implementation of comparison setting more
 -Team decided that there is a simpler way of implementing the comparison function. The comparison settings does not have to be a separate class
 
 ## Team Design
-![Team Design](./images/teamdesign.png)
+![Team Design](./images/teamdesign.PNG)
 Our main commonalities for the design are the Job class and its attributes. The team design also shares a hashmap for the Job data structure. The main design differences are the reduced amount of Classes. Compare_Jobs and Comparison Settings are merged into a single Class. The same is said for Job, Job_Offers, and Current_Job. This team design was selected based on the principle of simplicity and avoiding over-complication of the project.
 
 
