@@ -6,7 +6,6 @@ qmillender3
 Pro
 
 Using a key(username) to map with job information
-
 -this allows the current job to be stored in a hashmap. This creates the process of only updating the key in the hashmap when a current job is edited. This works for space because the hashmap does not allow duplicates 
 , but will not work if the user needs all previous jobs stored for historical reasons. 
 
@@ -16,6 +15,7 @@ Simple design
 
 
 Con
+
 Too many variables in main class
 -main class has too many variables which is not good for overall design. Main class can be removed and variables can be split to other classes.
 
