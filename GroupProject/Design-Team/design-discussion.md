@@ -29,7 +29,9 @@ User classes may be outside of requirements
  
 ###### Design 2
 jjia66
+
 ![jjia66](./images/jiadesign.PNG)
+
 Pro
 
 Simple design
@@ -40,6 +42,7 @@ Meets all requirements
 
 
 Con
+
 Needs to add more methods
 - The design meets all requirements, but the team decided that some more methods will need to be added for displaying the information.
 
