@@ -55,6 +55,7 @@ Does not have to store score in job
 nli311
 ![nli311](./images/nlidesign.PNG)
 Pro
+
 Appropriate use of relationships
 - Design uses stronger relationships than the other. The relationship shows that certain classes can not exist without other classes. The relationships help make sure we have the correct between classes. 
 
@@ -63,6 +64,7 @@ Meets all requirements
 
 
 Con
+
 Some data structures would be changed to handle data better
 - Design could use better data structure for storing and accessing data. Some variables may be better as hashmaps for the data that is being stored in it. 
 
