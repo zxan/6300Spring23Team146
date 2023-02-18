@@ -2,8 +2,7 @@
 ## Individual Design
 ###### Design 1
 qmillender3
-![qmillender3]
-(./images/qmillenderdesign.PNG)
+![qmillender3](./images/qmillenderdesign.PNG)
 Pro
 Using a key(username) to map with job information
 -this allows the current job to be stored in a hashmap. This creates the process of only updating the key in the hashmap when a current job is edited. This works for space because the hashmap does not allow duplicates 
