@@ -18,14 +18,14 @@ Then I added displayMainMenu method to show the choices to the user.
      * Personal Choice Holidays (A single overall number of days from 0 to 20)
    * Be able to either save the job details or cancel and exit without saving, returning in both cases to the main menu.  
    
-A: To realize this requirement, I created a new class Job with attributes title, company, location, costIndex, salary, bonus, rsu, relocateStipend, and holidays.
-Besides, I also included the id and isCurrentJob attribute, and setAsCurrentJob method to label the current job.
-And in the JobCompareService class, I used a Map structrue to store all jobs with the id as key.
-Besides, I use another currentJob attribute to record the currentJob.
-When user choose to enter of edit current job details, the system will first check if currentJob attribute is null.  
-If currentJob is null, then enter a new one by calling the method createNewJob(call the construciton method in Job class) and setCurrentJob.
-Else if currentJob is not null, then I added editJob method to the Job class to resolve the edit requirement.
-Besides, the createNewJob method can be reused in the next step for normal other offers.
+ A: To realize this requirement, I created a new class Job with attributes title, company, location, costIndex, salary, bonus, rsu,   relocateStipend, and holidays.
+ Besides, I also included the id and isCurrentJob attribute, and setAsCurrentJob method to label the current job.
+ And in the JobCompareService class, I used a Map structrue to store all jobs with the id as key.
+ Besides, I use another currentJob attribute to record the currentJob.
+ When user choose to enter of edit current job details, the system will first check if currentJob attribute is null.  
+ If currentJob is null, then enter a new one by calling the method createNewJob(call the construciton method in Job class) and setCurrentJob.
+ Else if currentJob is not null, then I added editJob method to the Job class to resolve the edit requirement.
+ Besides, the createNewJob method can be reused in the next step for normal other offers.
 
 3. When choosing to enter job offers, a user will:
    * Be shown a user interface to enter all the details of the offer, which are the same ones listed above for the current job.
