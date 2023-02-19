@@ -75,7 +75,8 @@ Needs to explore the implementation of comparison setting more
 
 ###### Design 4
 d32
-![d32](./images/d32.PNG)
+
+![d32](./images/d32.png)
 Pro
 
 Accounts for how classes with interact with gui
