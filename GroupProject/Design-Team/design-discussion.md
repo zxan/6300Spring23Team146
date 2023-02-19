@@ -60,7 +60,7 @@ Appropriate use of relationships
 - Design uses stronger relationships than the other. The relationship shows that certain classes can not exist without other classes. The relationships help make sure we have the correct between classes. 
 
 Meets all requirements 
-- the design meet all requirements required by document
+- the design meet all requirements required by document.
 
 
 Con
@@ -71,6 +71,23 @@ Some data structures would be changed to handle data better
 
 Needs to explore the implementation of comparison setting more 
 - Team decided that there is a simpler way of implementing the comparison function. The comparison settings does not have to be a separate class
+
+
+###### Design 4
+d32
+![d32](./images/d32.PNG)
+Pro
+
+Accounts for how classes with interact with gui
+- Provides interfaces showing how the gui will interact to with the classes and what information gets displayed
+
+Meets all requirements 
+- the design meet all requirements required by document. Design is simple in core functionality and one class mainly contains the requirement methods. 
+
+Cons
+
+Possibly could use more methods
+- Not sure how comparison settings are getting saved with jobId. The interface as a save method, but not sure where the settings are being saved to or how the setting are being used to calculate job weight.
 
 ## Team Design
 ![Team Design](./images/teamdesign.PNG)
