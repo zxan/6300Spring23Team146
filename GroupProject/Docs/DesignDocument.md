@@ -19,8 +19,6 @@ The hardware will be devices that are running an android operating system that h
 
 ## 2 Architectural Design
 
-The hardware will be devices that are running an android operating system that have the requirements to run API 31 or higher. The software the system will interact with is android studios using java 11 with a minimum SDK API 31:Android 12
-
 ### 2.1 Component Diagram
 ![Team Design](./images/componentDiagram.png)
 
