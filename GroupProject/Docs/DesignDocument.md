@@ -35,8 +35,8 @@ Application is a simple system with components self contained in the application
 
 ### 3.1 Class Diagram
 
-![Team Design](./images/guiInterface.png)
+![Team Design](./images/teamdesign.PNG)
 
 ## 4 User Interface Design
 
-![Team Design](./images/teamdesign.PNG)
+![Team Design](./images/guiInterface.png)
