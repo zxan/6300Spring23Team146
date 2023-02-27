@@ -33,7 +33,7 @@ Application is a simple system with components self contained in the application
 
 ### 3.1 Class Diagram
 
-![Team Design](./images/teamdesign.PNG)
+![Team Design](./images/teamdesign.png)
 
 ## 4 User Interface Design
 
