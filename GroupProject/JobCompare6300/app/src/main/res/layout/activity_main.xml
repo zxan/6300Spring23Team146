@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="58dp"
+        android:layout_marginTop="1dp"
+        android:orientation="vertical"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="-1dp">
+
+        <TextView
+            android:id="@+id/mainMenutitle"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#B3AEAE"
+            android:text="Please select an option below to continue"
+            android:textAlignment="center"
+            android:textSize="24sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="89dp"
+        android:layout_marginTop="60dp"
+        android:orientation="vertical"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="1dp">
+
+        <Button
+            android:id="@+id/EditJobButtonID"
+            android:layout_width="match_parent"
+            android:layout_height="88dp"
+            android:onClick="handleClick"
+            android:text="Enter/Edit Current Job" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="89dp"
+        android:layout_marginTop="150dp"
+        android:orientation="vertical"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="1dp">
+
+        <Button
+            android:id="@+id/JobOfferButtonID"
+            android:layout_width="match_parent"
+            android:layout_height="90dp"
+            android:onClick="handleClick"
+            android:text="Enter Job Offers" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="89dp"
+        android:layout_marginTop="240dp"
+        android:orientation="vertical"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="1dp">
+
+        <Button
+            android:id="@+id/ComparisonSettingsButtonID"
+            android:layout_width="match_parent"
+            android:layout_height="90dp"
+            android:onClick="handleClick"
+            android:text="Edit Comparison Settings" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="89dp"
+        android:layout_marginTop="330dp"
+        android:orientation="vertical"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="1dp">
+
+        <Button
+            android:id="@+id/CompareJobsButtonID"
+            android:layout_width="match_parent"
+            android:layout_height="90dp"
+            android:onClick="handleClick"
+            android:text="Compare Jobs" />
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
