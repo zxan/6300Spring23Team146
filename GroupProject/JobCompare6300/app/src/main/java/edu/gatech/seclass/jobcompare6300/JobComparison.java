@@ -16,7 +16,7 @@ import edu.gatech.seclass.jobcompare6300.model.Job;
 
 public class JobComparison extends AppCompatActivity{
 
-    ListView lv_text;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,13 +24,6 @@ public class JobComparison extends AppCompatActivity{
 
         Button goToCompareAnother = (Button) findViewById(R.id.CompareAnotherJobButtonID);
         Button mainMenuFromComparison = (Button) findViewById(R.id.CompareMainMenuButtonID);
-
-        DataBaseHelper dataBaseHelper = new DataBaseHelper(JobComparison.this);
-        List<Job> everyone = dataBaseHelper.getEveryone();
-        Toast.makeText(JobComparison.this, everyone.toString(), Toast.LENGTH_SHORT).show();
-
-        ArrayAdapter JobArrayAdapter = new ArrayAdapter<Job>(JobComparison.this, android.R.layout.simple_list_item_1, everyone);
-        lv_text.setAdapter(JobArrayAdapter);
 
         goToCompareAnother.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {

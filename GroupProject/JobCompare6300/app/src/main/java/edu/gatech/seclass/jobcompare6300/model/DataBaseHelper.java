@@ -66,6 +66,21 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         }
     }
 
+    public int getNextJobId() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String query = "SELECT MAX(" + COLUMN_ID + ") FROM " + JOB_TABLE;
+        Cursor cursor = db.rawQuery(query, null);
+        int maxId = 0;
+        if (cursor.moveToFirst()) {
+            maxId = cursor.getInt(0);
+        }
+        cursor.close();
+        return maxId + 1;
+    }
+
+
+
+
     public List<Job> getEveryone() {
         List<Job> returnList = new ArrayList<>();
         String queryString = "SELECT * FROM " + JOB_TABLE;
