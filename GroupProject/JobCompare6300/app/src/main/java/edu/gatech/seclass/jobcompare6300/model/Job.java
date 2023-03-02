@@ -25,6 +25,7 @@ public class Job {
         this.rsu = rsu;
         this.relocateStipend = relocateStipend;
         this.holidays = holidays;
+        this.isCurrentJob = false;
     }
 
     public void editJob(String title, String company, String location, int costIndex, int salary, int bonus, int rsu, int relocateStipend, int holidays) {
@@ -68,9 +69,21 @@ public class Job {
         return holidays;
     }
 
+    public boolean getCurrentJob() {
+        return isCurrentJob;
+    }
+
 
     public void setAsCurrentJob() {
         this.isCurrentJob = true;
+    }
+
+    public boolean isCurrentJob() {
+        return isCurrentJob;
+    }
+
+    public void setIsCurrentJob(boolean isCurrentJob) {
+        this.isCurrentJob = isCurrentJob;
     }
 
     public double getScore() {

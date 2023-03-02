@@ -67,7 +67,8 @@ public class CurrentJob extends AppCompatActivity {
                     int id = databaseHelper.getNextJobId();
                     Job currentJob = new Job(id, editCurrentJobTitle.getText().toString(), editCurrentJobCompany.getText().toString(), editCurrentJobLocation.getText().toString(), intJobCol, intJobSalary, intJobBonus, intJobRSU, intJobRelocation, intJobHolidays);
                     currentJob.setAsCurrentJob();
-                    boolean success = databaseHelper.addOne(currentJob);
+                    boolean isCurrentJob = currentJob.getCurrentJob();
+                    boolean success = databaseHelper.addOne(currentJob, isCurrentJob);
                     Toast.makeText(CurrentJob.this, "Success = " + success, Toast.LENGTH_SHORT).show();
                     Intent myIntent = new Intent(view.getContext(), MainActivity.class);
                     startActivity(myIntent);
@@ -87,7 +88,7 @@ public class CurrentJob extends AppCompatActivity {
         List<EditText> errorFields = new ArrayList<>();
 
         if (editCurrentJobTitle.getText().toString().trim().length() == 0)  {
-            editCurrentJobCompany.setError("Value cannot be empty");
+            editCurrentJobTitle.setError("Value cannot be empty");
             errorFields.add(editCurrentJobTitle);
         }
 

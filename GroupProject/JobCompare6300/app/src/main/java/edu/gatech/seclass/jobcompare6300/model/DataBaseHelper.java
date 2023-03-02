@@ -24,6 +24,8 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     public static final String COLUMN_RELOCATESTIPEND = "RELOCATE_STIPEND";
     public static final String COLUMN_HOLIDAY = "HOLIDAY";
 
+    public static final String COLUMN_IS_CURRENT = "IS_CURRENT";
+
     public DataBaseHelper(@Nullable Context context) {
         super(context, "jobcompare6300.db", null, 1);
     }
@@ -31,7 +33,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     //first time the database is run
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String createTableStatement = "CREATE TABLE " + JOB_TABLE + " (" + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + COLUMN_TITLE + " TEXT, " + COLUMN_COMPANY + " TEXT, " + COLUMN_LOCATION + " TEXT," + COLUMN_COSTINDEX + " INT, " + COLUMN_SALARY + " INT, " + COLUMN_BONUS + " INT, " + COLUMN_RSU + " INT, " + COLUMN_RELOCATESTIPEND + " INT, " + COLUMN_HOLIDAY + " INT)";
+        String createTableStatement = "CREATE TABLE " + JOB_TABLE + " (" + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + COLUMN_TITLE + " TEXT, " + COLUMN_COMPANY + " TEXT, " + COLUMN_LOCATION + " TEXT," + COLUMN_COSTINDEX + " INT, " + COLUMN_SALARY + " INT, " + COLUMN_BONUS + " INT, " + COLUMN_RSU + " INT, " + COLUMN_RELOCATESTIPEND + " INT, " + COLUMN_HOLIDAY + " INT, " + COLUMN_IS_CURRENT + " INT)";
 
         db.execSQL(createTableStatement);
     }
@@ -42,9 +44,16 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
     }
 
-    public boolean addOne(Job JobDB)  {
+    public boolean addOne(Job JobDB, boolean isCurrentJob)  {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
+
+        // Check if there is an existing current job
+        if (isCurrentJob) {
+            ContentValues cvOld = new ContentValues();
+            cvOld.put(COLUMN_IS_CURRENT, false);
+            db.update(JOB_TABLE, cvOld, COLUMN_IS_CURRENT + "=?", new String[]{"1"});
+        }
 
         cv.put(COLUMN_ID, JobDB.getId());
         cv.put(COLUMN_TITLE, JobDB.getTitle());
@@ -56,6 +65,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         cv.put(COLUMN_RSU, JobDB.getRsu());
         cv.put(COLUMN_RELOCATESTIPEND, JobDB.getRelocateStipend());
         cv.put(COLUMN_HOLIDAY, JobDB.getHolidays());
+        cv.put(COLUMN_IS_CURRENT, isCurrentJob ? 1 : 0);
 
         long insert = db.insert(JOB_TABLE, null, cv);
         if (insert == -1) {
@@ -78,8 +88,35 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         return maxId + 1;
     }
 
+    public boolean updateCurrentJob(Job newCurrentJob) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cvOld = new ContentValues();
+        ContentValues cvNew = new ContentValues();
 
+        // Set isCurrentJob to false for the old current job
+        cvOld.put(COLUMN_IS_CURRENT, false);
+        db.update(JOB_TABLE, cvOld, COLUMN_IS_CURRENT + "=?", new String[]{"1"});
 
+        // Set isCurrentJob to true for the new current job
+        cvNew.put(COLUMN_ID, newCurrentJob.getId());
+        cvNew.put(COLUMN_TITLE, newCurrentJob.getTitle());
+        cvNew.put(COLUMN_COMPANY, newCurrentJob.getCompany());
+        cvNew.put(COLUMN_LOCATION, newCurrentJob.getLocation());
+        cvNew.put(COLUMN_COSTINDEX, newCurrentJob.getCostIndex());
+        cvNew.put(COLUMN_SALARY, newCurrentJob.getSalary());
+        cvNew.put(COLUMN_BONUS, newCurrentJob.getBonus());
+        cvNew.put(COLUMN_RSU, newCurrentJob.getRsu());
+        cvNew.put(COLUMN_RELOCATESTIPEND, newCurrentJob.getRelocateStipend());
+        cvNew.put(COLUMN_HOLIDAY, newCurrentJob.getHolidays());
+        cvNew.put(COLUMN_IS_CURRENT, true);
+
+        long insert = db.insert(JOB_TABLE, null, cvNew);
+        if (insert == -1) {
+            return false;
+        } else {
+            return true;
+        }
+    }
 
     public List<Job> getEveryone() {
         List<Job> returnList = new ArrayList<>();
@@ -99,6 +136,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
                 int rsu = cursor.getInt(7);
                 int relocationstipend = cursor.getInt(8);
                 int holiday = cursor.getInt(9);
+                int iscurrent = cursor.getInt(10);
 
                 Job jobList = new Job(entryID, title, company, location, costindex, salary, bonus, rsu, relocationstipend, holiday);
                 returnList.add(jobList);
