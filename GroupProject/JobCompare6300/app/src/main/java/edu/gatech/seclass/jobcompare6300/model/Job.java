@@ -42,6 +42,32 @@ public class Job {
     public int getId() {
         return id;
     }
+    public String getTitle() {
+        return title;
+    }
+    public String getCompany() {return company; }
+    public String getLocation() {
+        return location;
+    }
+    public int getCostIndex() {
+        return costIndex;
+    }
+    public int getSalary() {
+        return salary;
+    }
+    public int getBonus() {
+        return bonus;
+    }
+    public int getRsu() {
+        return rsu;
+    }
+    public int getRelocateStipend() {
+        return relocateStipend;
+    }
+    public int getHolidays() {
+        return holidays;
+    }
+
 
     public void setAsCurrentJob() {
         this.isCurrentJob = true;
@@ -72,4 +98,6 @@ public class Job {
         }
         return str;
     }
+
+
 }

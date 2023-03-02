@@ -2,6 +2,7 @@ package edu.gatech.seclass.jobcompare6300;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.widget.ArrayAdapter;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -9,7 +10,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
+import java.util.List;
 
+import edu.gatech.seclass.jobcompare6300.model.DataBaseHelper;
 import edu.gatech.seclass.jobcompare6300.model.Job;
 
 public class CurrentJob  extends AppCompatActivity{
@@ -67,6 +70,10 @@ public class CurrentJob  extends AppCompatActivity{
                     Current_Job.setAsCurrentJob();
                     Toast.makeText(CurrentJob.this, "Success = " + Current_Job, Toast.LENGTH_SHORT).show();
 
+                    DataBaseHelper databaseHelper = new DataBaseHelper(CurrentJob.this);
+
+                    boolean success = databaseHelper.addOne(Current_Job);
+                    Toast.makeText(CurrentJob.this, "Success = " + success, Toast.LENGTH_SHORT).show();
                 }
             }
         });
