@@ -2,6 +2,9 @@ package edu.gatech.seclass.jobcompare6300;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.widget.ArrayAdapter;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -10,9 +13,15 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import edu.gatech.seclass.jobcompare6300.model.DataBaseHelper;
 import edu.gatech.seclass.jobcompare6300.model.Job;
 
-public class CurrentJob  extends AppCompatActivity{
+public class CurrentJob extends AppCompatActivity {
 
     private EditText editCurrentJobTitle;
     private EditText editCurrentJobCompany;
@@ -23,8 +32,6 @@ public class CurrentJob  extends AppCompatActivity{
     private EditText editCurrentJobRsuAward;
     private EditText editCurrentJobRelocation;
     private EditText editCurrentJobPersonalHolidays;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,18 +51,11 @@ public class CurrentJob  extends AppCompatActivity{
         editCurrentJobRelocation = findViewById(R.id.currentJobRelocation);
         editCurrentJobPersonalHolidays = findViewById(R.id.currentJobPTO);
 
-
-
-
         saveAndReturnHome.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-
-
-
-                if (invalidinput()){
+                if (invalidInput()) {
                     return;
-                }
-                else{
+                } else {
                     int intJobCol = Integer.parseInt(editCurrentJobCol.getText().toString());
                     int intJobSalary = Integer.parseInt(editCurrentJobSalary.getText().toString());
                     int intJobBonus = Integer.parseInt(editCurrentJobBonus.getText().toString());
@@ -63,16 +63,17 @@ public class CurrentJob  extends AppCompatActivity{
                     int intJobRelocation = Integer.parseInt(editCurrentJobRelocation.getText().toString());
                     int intJobHolidays = Integer.parseInt(editCurrentJobPersonalHolidays.getText().toString());
 
-                    Job Current_Job = new Job(1,editCurrentJobTitle.getText().toString(), editCurrentJobCompany.getText().toString(), editCurrentJobLocation.getText().toString(), intJobCol, intJobSalary, intJobBonus, intJobRSU, intJobRelocation, intJobHolidays);
-                    Current_Job.setAsCurrentJob();
-                    Toast.makeText(CurrentJob.this, "Success = " + Current_Job, Toast.LENGTH_SHORT).show();
-
+                    DataBaseHelper databaseHelper = new DataBaseHelper(CurrentJob.this);
+                    int id = databaseHelper.getNextJobId();
+                    Job currentJob = new Job(id, editCurrentJobTitle.getText().toString(), editCurrentJobCompany.getText().toString(), editCurrentJobLocation.getText().toString(), intJobCol, intJobSalary, intJobBonus, intJobRSU, intJobRelocation, intJobHolidays);
+                    currentJob.setAsCurrentJob();
+                    boolean success = databaseHelper.addOne(currentJob);
+                    Toast.makeText(CurrentJob.this, "Success = " + success, Toast.LENGTH_SHORT).show();
+                    Intent myIntent = new Intent(view.getContext(), MainActivity.class);
+                    startActivity(myIntent);
                 }
             }
         });
-
-
-
 
         cancelCurrent.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
@@ -82,69 +83,71 @@ public class CurrentJob  extends AppCompatActivity{
         });
     }
 
-    public boolean invalidinput(){
-        boolean a = false, b= false, c= false, d= false, g= false, f= false, h = false, i = false, j = false;
+    public boolean invalidInput() {
+        List<EditText> errorFields = new ArrayList<>();
 
         if (editCurrentJobTitle.getText().toString().trim().length() == 0)  {
             editCurrentJobCompany.setError("Value cannot be empty");
-            h = true;
+            errorFields.add(editCurrentJobTitle);
         }
+
         if (editCurrentJobTitle.getText().toString().trim().length() == 0)  {
             editCurrentJobTitle.setError("Input cannot be empty");
-            i = true;
+            errorFields.add(editCurrentJobTitle);
         }
 
         if (editCurrentJobLocation.getText().toString().trim().length() == 0)  {
             editCurrentJobLocation.setError("Input cannot be empty");
-            j = true;
+            errorFields.add(editCurrentJobLocation);
         }
 
         try {
             int intJobCol = Integer.parseInt(editCurrentJobCol.getText().toString());
         } catch (NumberFormatException e){
             editCurrentJobCol.setError("Input is not integer or is empty");
-            a = true;
+            errorFields.add(editCurrentJobCol);
         }
-
-
 
         try {
             int intJobSalary = Integer.parseInt(editCurrentJobSalary.getText().toString());
         } catch (NumberFormatException e){
             editCurrentJobSalary.setError("Input is not integer or is empty");
-            b = true;
+            errorFields.add(editCurrentJobSalary);
         }
+
         try {
             int intJobBonus = Integer.parseInt(editCurrentJobBonus.getText().toString());
         } catch (NumberFormatException e){
             editCurrentJobBonus.setError("Input is not integer or is empty");
-            c = true;
+            errorFields.add(editCurrentJobBonus);
         }
 
         try {
             int intJobRSU = Integer.parseInt(editCurrentJobRsuAward.getText().toString());
         } catch (NumberFormatException e){
             editCurrentJobRsuAward.setError("Input is not integer or is empty");
-            d = true;
+            errorFields.add(editCurrentJobRsuAward);
         }
 
         try {
             int intJobRelocation = Integer.parseInt(editCurrentJobRelocation.getText().toString());
         } catch (NumberFormatException e){
             editCurrentJobRelocation.setError("Input is not integer or is empty");
-            g = true;
+            errorFields.add(editCurrentJobRelocation);
         }
 
         try {
             int intJobHolidays = Integer.parseInt(editCurrentJobPersonalHolidays.getText().toString());
         } catch (NumberFormatException e){
             editCurrentJobPersonalHolidays.setError("Input is not integer or is empty");
-            f = true;
+            errorFields.add(editCurrentJobPersonalHolidays);
         }
-        if (a == true || b  == true || c == true || d == true || f  == true || g  == true || h == true){
+
+        if (errorFields.size() > 0) {
+            // Focus the first EditText view with an error
+            errorFields.get(0).requestFocus();
             return true;
-        }
-        else{
+        } else {
             return false;
         }
     }
