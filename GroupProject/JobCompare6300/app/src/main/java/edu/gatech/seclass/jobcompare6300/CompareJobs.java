@@ -67,7 +67,17 @@ public class CompareJobs extends AppCompatActivity{
 
                 // Disable the click event if two jobs are already selected
                 if (numSelectedJobs == 2) {
-                    text1.setEnabled(false);
+                    if (job.isSelected()) {
+                        text1.setEnabled(true);
+                        text1.setOnClickListener(new View.OnClickListener() {
+                            public void onClick(View view) {
+                                job.setSelected(!job.isSelected());
+                                notifyDataSetChanged();
+                            }
+                        });
+                    } else {
+                        text1.setEnabled(false);
+                    }
                 } else {
                     text1.setEnabled(true);
                     text1.setOnClickListener(new View.OnClickListener() {
