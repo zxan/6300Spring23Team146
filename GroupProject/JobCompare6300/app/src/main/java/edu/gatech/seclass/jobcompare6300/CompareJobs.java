@@ -1,6 +1,7 @@
 package edu.gatech.seclass.jobcompare6300;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -33,18 +34,57 @@ public class CompareJobs extends AppCompatActivity{
         List<Job> everyone = dataBaseHelper.getEveryone();
 
         // Use custom adapter that displays only the job title and company
+        // Use custom adapter that displays only the job title and company for jobs that are currently active
         ArrayAdapter<Job> jobArrayAdapter = new ArrayAdapter<Job>(CompareJobs.this, android.R.layout.simple_list_item_1, android.R.id.text1, everyone) {
             @Override
             public View getView(int position, View convertView, ViewGroup parent) {
                 View view = super.getView(position, convertView, parent);
 
                 TextView text1 = view.findViewById(android.R.id.text1);
-                text1.setText(getItem(position).getTitle() + " - " + getItem(position).getCompany());
+                Job job = getItem(position);
+                job.updateCurrentJobStatus(getContext());
+
+                if (job.isCurrentJob()) {
+                    text1.setText(job.getTitle() + " - " + job.getCompany() + " (Current)");
+                } else {
+                    text1.setText(job.getTitle() + " - " + job.getCompany());
+                }
+
+                if (job.isSelected()) {
+                    text1.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.teal_700));
+                } else {
+                    text1.setBackgroundColor(ContextCompat.getColor(getContext(), android.R.color.transparent));
+                }
+
+                // Keep track of the number of selected jobs
+                int numSelectedJobs = 0;
+                for (int i = 0; i < getCount(); i++) {
+                    Job j = getItem(i);
+                    if (j.isSelected()) {
+                        numSelectedJobs++;
+                    }
+                }
+
+                // Disable the click event if two jobs are already selected
+                if (numSelectedJobs == 2) {
+                    text1.setEnabled(false);
+                } else {
+                    text1.setEnabled(true);
+                    text1.setOnClickListener(new View.OnClickListener() {
+                        public void onClick(View view) {
+                            job.setSelected(!job.isSelected());
+                            notifyDataSetChanged();
+                        }
+                    });
+                }
 
                 return view;
             }
+
         };
+
         lv_text.setAdapter(jobArrayAdapter);
+
 
         compareJobs.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {

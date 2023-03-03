@@ -1,5 +1,11 @@
 package edu.gatech.seclass.jobcompare6300.model;
 
+import android.annotation.SuppressLint;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteOpenHelper;
+import android.database.sqlite.SQLiteDatabase;
+import android.content.Context;
+
 public class Job {
 
     private int id;
@@ -14,6 +20,8 @@ public class Job {
     private int holidays;
     private boolean isCurrentJob;
 
+    private boolean isSelected;
+
     public Job(int id, String title, String company, String location, int costIndex, int salary, int bonus, int rsu, int relocateStipend, int holidays) {
         this.id = id;
         this.title = title;
@@ -26,6 +34,7 @@ public class Job {
         this.relocateStipend = relocateStipend;
         this.holidays = holidays;
         this.isCurrentJob = false;
+        this.isSelected = false;
     }
 
     public void editJob(String title, String company, String location, int costIndex, int salary, int bonus, int rsu, int relocateStipend, int holidays) {
@@ -38,6 +47,14 @@ public class Job {
         this.rsu = rsu;
         this.relocateStipend = relocateStipend;
         this.holidays = holidays;
+    }
+
+    public boolean isSelected() {
+        return isSelected;
+    }
+
+    public void setSelected(boolean isSelected) {
+        this.isSelected = isSelected;
     }
 
     public int getId() {
@@ -84,6 +101,22 @@ public class Job {
 
     public void setIsCurrentJob(boolean isCurrentJob) {
         this.isCurrentJob = isCurrentJob;
+    }
+
+    @SuppressLint("Range")
+    public void updateCurrentJobStatus(Context context) {
+        DataBaseHelper dbHelper = new DataBaseHelper(context);
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+
+        Cursor cursor = db.rawQuery("SELECT " + DataBaseHelper.COLUMN_IS_CURRENT + " FROM " + DataBaseHelper.JOB_TABLE +
+                " WHERE " + DataBaseHelper.COLUMN_ID + " = " + this.id, null);
+
+        if (cursor.moveToFirst()) {
+            this.isCurrentJob = cursor.getInt(cursor.getColumnIndex(DataBaseHelper.COLUMN_IS_CURRENT)) == 1;
+        }
+
+        cursor.close();
+        db.close();
     }
 
     public double getScore() {
