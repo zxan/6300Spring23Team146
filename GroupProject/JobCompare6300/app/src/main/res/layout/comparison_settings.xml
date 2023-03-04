@@ -37,7 +37,7 @@
             android:layout_height="match_parent"
             android:background="@null"
             android:text="Salary"
-            android:textAlignment="textStart"
+            android:gravity="center_vertical"
             android:textSize="24sp" />
 
         <com.google.android.material.textfield.TextInputLayout
@@ -47,8 +47,8 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/textComparisonSalaryWeight"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="#FAF8F8" />
+                android:layout_height="35dp"
+                android:background="@drawable/edittext_border" />
         </com.google.android.material.textfield.TextInputLayout>
     </LinearLayout>
 
@@ -64,8 +64,8 @@
             android:layout_width="200dp"
             android:layout_height="match_parent"
             android:background="@null"
+            android:gravity="center_vertical"
             android:text="Bonus"
-            android:textAlignment="textStart"
             android:textSize="24sp" />
 
         <com.google.android.material.textfield.TextInputLayout
@@ -75,8 +75,8 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/textComparisonBonusWeight"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="#FAF8F8" />
+                android:layout_height="35dp"
+                android:background="@drawable/edittext_border" />
         </com.google.android.material.textfield.TextInputLayout>
     </LinearLayout>
 
@@ -93,7 +93,7 @@
             android:layout_height="match_parent"
             android:background="@null"
             android:text="Restricted Stock Units"
-            android:textAlignment="textStart"
+            android:gravity="center_vertical"
             android:textSize="24sp" />
 
         <com.google.android.material.textfield.TextInputLayout
@@ -103,8 +103,8 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/textComparisonRSUWeight"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="#FAF8F8" />
+                android:layout_height="35dp"
+                android:background="@drawable/edittext_border" />
         </com.google.android.material.textfield.TextInputLayout>
     </LinearLayout>
 
@@ -121,7 +121,7 @@
             android:layout_height="match_parent"
             android:background="@null"
             android:text="Relocation Stipend"
-            android:textAlignment="textStart"
+            android:gravity="center_vertical"
             android:textSize="24sp" />
 
         <com.google.android.material.textfield.TextInputLayout
@@ -131,8 +131,8 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/textComparisonRelocationWeight"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="#FAF8F8" />
+                android:layout_height="35dp"
+                android:background="@drawable/edittext_border" />
         </com.google.android.material.textfield.TextInputLayout>
     </LinearLayout>
 
@@ -150,7 +150,7 @@
             android:layout_height="match_parent"
             android:background="@null"
             android:text="Paid Time Off"
-            android:textAlignment="textStart"
+            android:gravity="center_vertical"
             android:textSize="24sp" />
 
         <com.google.android.material.textfield.TextInputLayout
@@ -160,8 +160,8 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/textComparisonPTOWeight"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="#FAF8F8" />
+                android:layout_height="35dp"
+                android:background="@drawable/edittext_border" />
         </com.google.android.material.textfield.TextInputLayout>
     </LinearLayout>
 
