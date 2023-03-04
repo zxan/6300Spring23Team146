@@ -46,7 +46,7 @@
             android:layout_height="match_parent"
             android:background="@null"
             android:text="Title"
-
+            android:gravity="center_vertical"
             android:textSize="24sp" />
 
             <com.google.android.material.textfield.TextInputLayout
@@ -57,7 +57,7 @@
                     android:id="@+id/textJobOfferTitle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="#FAF8F8" />
+                    android:background="@drawable/edittext_border" />
             </com.google.android.material.textfield.TextInputLayout>
     </LinearLayout>
 
@@ -74,7 +74,7 @@
             android:layout_height="match_parent"
             android:background="@null"
             android:text="Company"
-            android:textAlignment="textStart"
+            android:gravity="center_vertical"
             android:textSize="24sp" />
 
         <com.google.android.material.textfield.TextInputLayout
@@ -85,7 +85,7 @@
                 android:id="@+id/currentJobOfferCompany"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#FAF8F8" />
+                android:background="@drawable/edittext_border" />
         </com.google.android.material.textfield.TextInputLayout>
     </LinearLayout>
 
@@ -102,7 +102,7 @@
             android:layout_height="match_parent"
             android:background="@null"
             android:text="Location"
-            android:textAlignment="textStart"
+            android:gravity="center_vertical"
             android:textSize="24sp" />
 
         <com.google.android.material.textfield.TextInputLayout
@@ -113,7 +113,7 @@
                 android:id="@+id/currentJobOfferLocation"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#FAF8F8" />
+                android:background="@drawable/edittext_border" />
         </com.google.android.material.textfield.TextInputLayout>
     </LinearLayout>
 
@@ -130,7 +130,7 @@
             android:layout_height="match_parent"
             android:background="@null"
             android:text="Cost of Living"
-            android:textAlignment="textStart"
+            android:gravity="center_vertical"
             android:textSize="24sp" />
 
         <com.google.android.material.textfield.TextInputLayout
@@ -141,7 +141,7 @@
                 android:id="@+id/currentJobOfferCOL"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#FAF8F8" />
+                android:background="@drawable/edittext_border" />
         </com.google.android.material.textfield.TextInputLayout>
     </LinearLayout>
 
@@ -158,7 +158,7 @@
             android:layout_height="match_parent"
             android:background="@null"
             android:text="Salary"
-            android:textAlignment="textStart"
+            android:gravity="center_vertical"
             android:textSize="24sp" />
 
         <com.google.android.material.textfield.TextInputLayout
@@ -169,7 +169,7 @@
                 android:id="@+id/currentJobOfferSalary"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#FAF8F8" />
+                android:background="@drawable/edittext_border" />
         </com.google.android.material.textfield.TextInputLayout>
     </LinearLayout>
 
@@ -186,7 +186,7 @@
             android:layout_height="match_parent"
             android:background="@null"
             android:text="Bonus"
-            android:textAlignment="textStart"
+            android:gravity="center_vertical"
             android:textSize="24sp" />
 
         <com.google.android.material.textfield.TextInputLayout
@@ -197,7 +197,7 @@
                 android:id="@+id/currentJobOfferBonus"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#FAF8F8" />
+                android:background="@drawable/edittext_border" />
         </com.google.android.material.textfield.TextInputLayout>
     </LinearLayout>
 
@@ -214,7 +214,7 @@
             android:layout_height="match_parent"
             android:background="@null"
             android:text="Restricted Stock Units"
-            android:textAlignment="textStart"
+            android:gravity="center_vertical"
             android:textSize="24sp" />
 
         <com.google.android.material.textfield.TextInputLayout
@@ -225,7 +225,7 @@
                 android:id="@+id/currentJobOfferRSU"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#FAF8F8" />
+                android:background="@drawable/edittext_border" />
         </com.google.android.material.textfield.TextInputLayout>
     </LinearLayout>
 
@@ -242,7 +242,7 @@
             android:layout_height="match_parent"
             android:background="@null"
             android:text="Relocation Stipend"
-            android:textAlignment="textStart"
+            android:gravity="center_vertical"
             android:textSize="24sp" />
 
         <com.google.android.material.textfield.TextInputLayout
@@ -253,7 +253,7 @@
                 android:id="@+id/currentJobOfferRelocation"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#FAF8F8" />
+                android:background="@drawable/edittext_border" />
         </com.google.android.material.textfield.TextInputLayout>
     </LinearLayout>
 
@@ -270,7 +270,7 @@
             android:layout_height="match_parent"
             android:background="@null"
             android:text="Paid Time Off"
-            android:textAlignment="textStart"
+            android:gravity="center_vertical"
             android:textSize="24sp" />
 
         <com.google.android.material.textfield.TextInputLayout
@@ -282,7 +282,7 @@
                 android:id="@+id/currentJobOfferPTO"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#FAF8F8" />
+                android:background="@drawable/edittext_border" />
         </com.google.android.material.textfield.TextInputLayout>
 
     </LinearLayout>
