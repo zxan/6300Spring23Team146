@@ -34,8 +34,8 @@ Application is a simple system with components self contained in the application
 ### 3.1 Class Diagram
 
 Class diagram was updated to contain the new databasehelper class
-![Team Design](./images/teamdesign.PNG)
+![Team Design](./images/Version1.2_teamdesign.PNG)
 
 ## 4 User Interface Design
 
-![Team Design](./images/guiInterface.png)
+![Team Design](./images/Version1.2_guiInterface.png)
