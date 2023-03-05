@@ -34,8 +34,9 @@ Application is a simple system with components self contained in the application
 ### 3.1 Class Diagram
 
 Class diagram was updated to contain the new databasehelper class
-![Team Design](./images/Version1.2_teamdesign.PNG)
+![Team Design](./images/Version1.2_teamdesign.png)
 
 ## 4 User Interface Design
 
+Gui interface was updated to reflect the change to the compare another job button from the job comparison gui
 ![Team Design](./images/Version1.2_guiInterface.png)
