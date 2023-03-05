@@ -1,23 +1,12 @@
-# Project Plan
-
-*This is the template for your project plan. The parts in italics are concise explanations of what should go in the corresponding sections and should not appear in the final document.*
+# Project Plan Version 1.1
 
 **Author**: Ningxin Li
 
 ## 1 Introduction
 
-*Here you introduce the product. Keep this  clean and simple, one or two sentences at most.*
 This project aims to create a mobile app that will allow users to search and apply for jobs. The app will feature a user-friendly interface and will be available on Android devices.
 
 ## 2 Process Description
-
-*Project development process description as a set of activities; for each development process activity, provide the following:*
-
-- *Activity name (verb or verb phrase)*
-- *Activity description (concise paragraph)*
-- *Entrance criteria (inputs needed for the activity)*
-- *Exit criteria (outputs produced by the activity and how you know it has been completed satisfactorily)*
-
 
 The project development process is a series of activities that are used to create a new product or service. The process begins with the identification of a need or opportunity, and ends with the delivery of the finished product or service. In between, there are a number of steps that must be completed, including:
 1. Inception 
@@ -82,6 +71,7 @@ Our solution to this is to monitor the deployment process and log any errors or 
   - Stable vision and architecture.
   - Resolved or addressed major risks within the prototype.
   - A developed and accurate project plan.
+  - Initial Unit Tests
   - Stakeholders agree that vision can be achieved with the current plan.
 
 
@@ -93,6 +83,7 @@ Our solution to this is to monitor the deployment process and log any errors or 
   - Entry requirements for the elaboration phase deliverables include: 
   - To satisfy the user requirements.
   - The actual resource expenditures should not exceed the planned expenditures.
+  - Completed Unit Tests
 - Exit criteria for the transition phase deliverables include: 
   - Project completed
   - Project in use
@@ -101,15 +92,9 @@ Our solution to this is to monitor the deployment process and log any errors or 
 
 ## 3 Team
 
-*Describe the team and their roles (include at least 4 roles, there may be more roles than there are team members)*
-
-- *Team members' names*
-- *Roles, with a short description of each role*
-- *Table showing which team member(s) has which role(s)*
-
 | Team member | Title       | Description   |
 | :---        |    :----:   |          ---: |
-| nli311 | Software Architecture | Responsible for project documentation|
+| nli311 | Software Architecture | Responsible for project documentation and SQLite implementation |
 | qmillender3| Frontend Developer| Responsible for development of android screen functionality |
 | jjia66   | Backend Developer| Responsible for application architecture|
 | d32 | QA/ Automation Testing| Responsible for developing tests and quality control for application     |
