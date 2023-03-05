@@ -6,6 +6,9 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteDatabase;
 import android.content.Context;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Job {
 
     private int id;
@@ -136,6 +139,23 @@ public class Job {
         }
         return str;
     }
+
+    public List<String> getJobParameters() {
+        List<String> jobParams = new ArrayList<>();
+
+        jobParams.add("ID: " + id);
+        jobParams.add("Title: " + title);
+        jobParams.add("Company: " + company);
+        jobParams.add("Location: " + location);
+        jobParams.add("Salary: " + salary);
+        jobParams.add("Bonus: " + bonus);
+        jobParams.add("RSU: " + rsu);
+        jobParams.add("Relocate Stipend: " + relocateStipend);
+        jobParams.add("Holidays: " + holidays);
+
+        return jobParams;
+    }
+
 
     public String toShort() {
         String str = String.format("%-8s %-8s %-8s", id, title, company);

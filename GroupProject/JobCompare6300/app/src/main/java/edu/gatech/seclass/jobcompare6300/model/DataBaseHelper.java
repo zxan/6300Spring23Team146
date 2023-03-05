@@ -118,6 +118,37 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         }
     }
 
+    public Job getJob(int jobId) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.query(
+                JOB_TABLE,
+                new String[] {"ID", "TITLE", "COMPANY", "LOCATION", "COST_INDEX", "SALARY", "BONUS", "RSU", "RELOCATE_STIPEND", "HOLIDAY"},
+                "id = ?",
+                new String[] {String.valueOf(jobId)},
+                null, null, null, null);
+
+        if (cursor != null)
+            cursor.moveToFirst();
+
+        Job job = new Job(
+                cursor.getInt(0),
+                cursor.getString(1),
+                cursor.getString(2),
+                cursor.getString(3),
+                cursor.getInt(4),
+                cursor.getInt(5),
+                cursor.getInt(6),
+                cursor.getInt(7),
+                cursor.getInt(8),
+                cursor.getInt(9)
+        );
+
+        cursor.close();
+        db.close();
+        return job;
+    }
+
+
     public List<Job> getEveryone() {
         List<Job> returnList = new ArrayList<>();
         String queryString = "SELECT * FROM " + JOB_TABLE;

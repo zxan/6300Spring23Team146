@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import edu.gatech.seclass.jobcompare6300.model.DataBaseHelper;
@@ -98,7 +99,15 @@ public class CompareJobs extends AppCompatActivity{
 
         compareJobs.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
+                List<Integer> selectedIds = new ArrayList<>();
+                for (int i = 0; i < everyone.size(); i++) {
+                    Job job = everyone.get(i);
+                    if (job.isSelected()) {
+                        selectedIds.add(job.getId());
+                    }
+                }
                 Intent myIntent = new Intent(view.getContext(), JobComparison.class);
+                myIntent.putIntegerArrayListExtra("selectedIds", (ArrayList<Integer>) selectedIds);
                 startActivity(myIntent);
             }
         });
