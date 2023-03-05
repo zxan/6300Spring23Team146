@@ -336,7 +336,7 @@
             android:textSize="24sp" />
 
         <TextView
-            android:id="@+id/compareJobRelocation"
+            android:id="@+id/compareJob2Relocation"
             android:layout_width="103.5dp"
             android:layout_height="match_parent"
             android:background="@null"
