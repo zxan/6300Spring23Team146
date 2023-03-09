@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import edu.gatech.seclass.jobcompare6300.model.DataBaseHelper;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -13,7 +14,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        DataBaseHelper databaseHelper = new DataBaseHelper(MainActivity.this);
+        databaseHelper.insertInitialWeights();
         Button currentJob = (Button) findViewById(R.id.EditJobButtonID);
         Button jobOffer = (Button) findViewById(R.id.JobOfferButtonID);
         Button comparisonSettings = (Button) findViewById(R.id.ComparisonSettingsButtonID);
