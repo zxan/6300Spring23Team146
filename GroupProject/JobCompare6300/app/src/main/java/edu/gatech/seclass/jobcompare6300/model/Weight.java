@@ -1,18 +1,20 @@
 package edu.gatech.seclass.jobcompare6300.model;
 
 public class Weight {
+    private static int weightentryID;
     private static int salaryWeight;
     private static int bonusWeight;
     private static int rsuWeight;
     private static int relocationStipendWeight;
     private static int holidaysWeight;
 
-    public Weight() {
-        salaryWeight = 1;
-        bonusWeight = 1;
-        rsuWeight = 1;
-        relocationStipendWeight = 1;
-        holidaysWeight = 1;
+    public Weight(int entryID, int salary, int bonus, int rsu, int relocationstipend, int holiday) {
+        weightentryID = entryID;
+        salaryWeight = salary;
+        bonusWeight = bonus;
+        rsuWeight = rsu;
+        relocationStipendWeight = relocationstipend;
+        holidaysWeight = holiday;
     }
 
     public static int getSalaryWeight() {

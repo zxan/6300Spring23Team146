@@ -22,8 +22,15 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     public static final String COLUMN_BONUS = "BONUS";
     public static final String COLUMN_RSU = "RSU";
     public static final String COLUMN_RELOCATESTIPEND = "RELOCATE_STIPEND";
+    public static final String COLUMN_WEIGHTED_VALUE = "COLUMN_WEIGHTED_VALUE";
     public static final String COLUMN_HOLIDAY = "HOLIDAY";
-
+    public static final String WEIGHT_JOB_TABLE = "WEIGHT_JOB_TABLE";
+    public static final String WEIGHT_COLUMN_SALARY = "WEIGHTED_SALARY";
+    public static final String WEIGHT_COLUMN_BONUS = "WEIGHTED_BONUS";
+    public static final String WEIGHT_COLUMN_RSU = "WEIGHTED_RSU";
+    public static final String WEIGHT_COLUMN_RELOCATESTIPEND = "WEIGHTED_RELOCATE_STIPEND";
+    public static final String WEIGHT_COLUMN_HOLIDAY = "WEIGHTED_HOLIDAY";
+    public static final String WEIGHT_COLUMN_ID = "WEIGHTED_ID";
     public static final String COLUMN_IS_CURRENT = "IS_CURRENT";
 
     public DataBaseHelper(@Nullable Context context) {
@@ -33,9 +40,12 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     //first time the database is run
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String createTableStatement = "CREATE TABLE " + JOB_TABLE + " (" + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + COLUMN_TITLE + " TEXT, " + COLUMN_COMPANY + " TEXT, " + COLUMN_LOCATION + " TEXT," + COLUMN_COSTINDEX + " INT, " + COLUMN_SALARY + " INT, " + COLUMN_BONUS + " INT, " + COLUMN_RSU + " INT, " + COLUMN_RELOCATESTIPEND + " INT, " + COLUMN_HOLIDAY + " INT, " + COLUMN_IS_CURRENT + " INT)";
+        String createTableStatement = "CREATE TABLE " + JOB_TABLE + " (" + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + COLUMN_TITLE + " TEXT, " + COLUMN_COMPANY + " TEXT, " + COLUMN_LOCATION + " TEXT," + COLUMN_COSTINDEX + " INT, " + COLUMN_SALARY + " INT, " + COLUMN_BONUS + " INT, " + COLUMN_RSU + " INT, " + COLUMN_RELOCATESTIPEND + " INT, " + COLUMN_HOLIDAY + " INT, " + COLUMN_IS_CURRENT + " INT, " + COLUMN_WEIGHTED_VALUE + " DECIMAL(10,2))";
 
         db.execSQL(createTableStatement);
+
+        String createWeightTableStatement = "CREATE TABLE " + WEIGHT_JOB_TABLE + " (" + WEIGHT_COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + WEIGHT_COLUMN_SALARY + " TEXT, " + WEIGHT_COLUMN_BONUS + " TEXT, " + WEIGHT_COLUMN_RSU + " TEXT," + WEIGHT_COLUMN_RELOCATESTIPEND + " INT, " + WEIGHT_COLUMN_HOLIDAY + " INT )";
+        db.execSQL(createWeightTableStatement);
     }
 
     //whenever the database version changes this is called
@@ -182,5 +192,40 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         db.close();
 
         return returnList;
+    }
+
+    public void insertInitialWeights(){
+        Cursor c = null;
+        String query = "SELECT " + WEIGHT_COLUMN_ID + ","+WEIGHT_COLUMN_SALARY+ ","+WEIGHT_COLUMN_BONUS+ ","+WEIGHT_COLUMN_RSU+ ","+WEIGHT_COLUMN_RELOCATESTIPEND+","+WEIGHT_COLUMN_HOLIDAY+" FROM " + WEIGHT_JOB_TABLE;
+
+        ContentValues cvNew = new ContentValues();
+        SQLiteDatabase db = this.getReadableDatabase();
+        c = db.rawQuery(query, null);
+        c.moveToFirst();
+        if( c.getCount() < 1) {
+
+            cvNew.put(WEIGHT_COLUMN_ID, 1);
+            cvNew.put(WEIGHT_COLUMN_SALARY, 1);
+            cvNew.put(WEIGHT_COLUMN_BONUS, 1);
+            cvNew.put(WEIGHT_COLUMN_RSU, 1);
+            cvNew.put(WEIGHT_COLUMN_RELOCATESTIPEND, 1);
+            cvNew.put(WEIGHT_COLUMN_HOLIDAY, 1);
+            long insert = db.insert(WEIGHT_JOB_TABLE, null, cvNew);
+        }
+
+        c.close();
+        db.close();
+    }
+    public void updateWeights(String salary,String bonus,String rsu,String relocation,String holiday){
+        SQLiteDatabase db = this.getReadableDatabase();
+        ContentValues cvOld = new ContentValues();
+        cvOld.put(WEIGHT_COLUMN_SALARY, salary);
+        cvOld.put(WEIGHT_COLUMN_BONUS, bonus);
+        cvOld.put(WEIGHT_COLUMN_RSU, rsu);
+        cvOld.put(WEIGHT_COLUMN_RELOCATESTIPEND, relocation);
+        cvOld.put(WEIGHT_COLUMN_HOLIDAY,holiday);
+        db.update(WEIGHT_JOB_TABLE, cvOld, WEIGHT_COLUMN_ID + "=?", new String[]{"1"});
+
+        db.close();
     }
 }
