@@ -8,6 +8,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import edu.gatech.seclass.jobcompare6300.model.DataBaseHelper;
 import edu.gatech.seclass.jobcompare6300.model.Job;
 import edu.gatech.seclass.jobcompare6300.model.Weight;
@@ -41,6 +44,21 @@ public class ComparisonSettings extends AppCompatActivity{
                 String ptoWeight = updatePTOWeight.getText().toString();
                 DataBaseHelper databaseHelper = new DataBaseHelper(ComparisonSettings.this);
                 databaseHelper.updateWeights(salaryWeight,bonusWeight,rsuWeight,relocationWeight,ptoWeight);
+
+//                Weight.setSalaryWeight(Integer.parseInt(salaryWeight));
+//                Weight.setBonusWeight(Integer.parseInt(bonusWeight));
+//                Weight.setRsuWeight(Integer.parseInt(rsuWeight));
+//                Weight.setRelocationStipendWeight(Integer.parseInt(relocationWeight));
+//                Weight.setHolidaysWeight(Integer.parseInt(ptoWeight));
+                databaseHelper.setWeights();
+                List<Job> everyone = databaseHelper.getEveryone();
+                for (int i = 0; i < everyone.size(); i++) {
+                    Job job = everyone.get(i);
+                    int id  = job.getId();
+                    double score = job.getScore();
+                    databaseHelper.updateJobScore(id,score);
+                }
+
                 Intent myIntent = new Intent(view.getContext(), MainActivity.class);
                 startActivity(myIntent);
                 finish();

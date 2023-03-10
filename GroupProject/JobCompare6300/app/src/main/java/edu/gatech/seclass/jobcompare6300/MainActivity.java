@@ -16,6 +16,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         DataBaseHelper databaseHelper = new DataBaseHelper(MainActivity.this);
         databaseHelper.insertInitialWeights();
+        databaseHelper.setWeights();
+
         Button currentJob = (Button) findViewById(R.id.EditJobButtonID);
         Button jobOffer = (Button) findViewById(R.id.JobOfferButtonID);
         Button comparisonSettings = (Button) findViewById(R.id.ComparisonSettingsButtonID);

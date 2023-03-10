@@ -123,6 +123,7 @@ public class Job {
     }
 
     public double getScore() {
+
         double sum = Weight.getSalaryWeight() + Weight.getBonusWeight() + Weight.getRsuWeight() + Weight.getRelocationStipendWeight() + Weight.getHolidaysWeight();
         double score = Weight.getSalaryWeight() / sum * salary
                 + Weight.getBonusWeight() / sum * bonus
