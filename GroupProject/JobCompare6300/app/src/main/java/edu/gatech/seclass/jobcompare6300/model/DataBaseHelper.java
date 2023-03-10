@@ -152,7 +152,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
                 cursor.getInt(7),
                 cursor.getInt(8),
                 cursor.getInt(9)
-        );
+                );
 
         cursor.close();
         db.close();
@@ -194,6 +194,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
         return returnList;
     }
+
 
     public void insertInitialWeights(){
         Cursor c = null;
@@ -270,5 +271,32 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         db.update(JOB_TABLE, cvOld, COLUMN_ID + " = ?", new String[]{String.valueOf(id)});
 
         db.close();
+    }
+    public  boolean isCurrentJobStatusById(int id) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        int bool = 0;
+        Cursor cursor = db.rawQuery("SELECT *  FROM " + JOB_TABLE +
+                " WHERE " + COLUMN_ID + " = " + id , null);
+
+        if (cursor.moveToFirst()){
+            do {
+                int iscurrent = cursor.getInt(10);
+                if(iscurrent == 1){
+                    bool = 1;
+                }
+
+            }while (cursor.moveToNext());
+        }
+        else{
+
+        }
+        cursor.close();
+        db.close();
+        if (bool ==1){
+            return true;
+        }
+        else{
+            return false;
+        }
     }
 }
