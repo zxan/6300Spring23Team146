@@ -36,6 +36,7 @@ public class Job {
         this.rsu = rsu;
         this.relocateStipend = relocateStipend;
         this.holidays = holidays;
+        this.isCurrentJob = false;
         this.isSelected = false;
     }
 
