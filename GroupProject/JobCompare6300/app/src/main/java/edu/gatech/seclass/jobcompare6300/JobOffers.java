@@ -30,7 +30,8 @@ public class JobOffers extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.job_offer);
-
+        DataBaseHelper dataBaseHelper = new DataBaseHelper(JobOffers.this);
+        List<Job> everyone = dataBaseHelper.getEveryone();
         Button saveJobOffer = (Button) findViewById(R.id.SaveJobOfferButtonID);
         Button cancelJobOffer = (Button) findViewById(R.id.CancelJobOfferButtonID);
         Button compareJobOffer = (Button) findViewById(R.id.CompareJobOfferButtonID);
@@ -82,7 +83,22 @@ public class JobOffers extends AppCompatActivity{
 
         compareJobOffer.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
+                List<Integer> selectedIds = new ArrayList<>();
+                int id = 0;
+
+                for (int i = 0; i < everyone.size(); i++) {
+                    Job job = everyone.get(i);
+                    int jobId = job.getId();
+                    boolean isCurrent = dataBaseHelper.isCurrentJobStatusById(jobId);
+                    if (isCurrent) {
+                        selectedIds.add(job.getId());
+                    } else if (jobId > id) {
+                        id = jobId;
+                    }
+                }
+                selectedIds.add(id);
                 Intent myIntent = new Intent(view.getContext(), JobComparison.class);
+                myIntent.putIntegerArrayListExtra("selectedIds", (ArrayList<Integer>) selectedIds);
                 startActivity(myIntent);
             }
         });
