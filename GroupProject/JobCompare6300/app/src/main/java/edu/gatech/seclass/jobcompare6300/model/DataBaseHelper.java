@@ -76,6 +76,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         cv.put(COLUMN_RELOCATESTIPEND, JobDB.getRelocateStipend());
         cv.put(COLUMN_HOLIDAY, JobDB.getHolidays());
         cv.put(COLUMN_IS_CURRENT, isCurrentJob ? 1 : 0);
+        cv.put(COLUMN_WEIGHTED_VALUE, JobDB.getScore());
 
         long insert = db.insert(JOB_TABLE, null, cv);
         if (insert == -1) {
@@ -161,7 +162,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
     public List<Job> getEveryone() {
         List<Job> returnList = new ArrayList<>();
-        String queryString = "SELECT * FROM " + JOB_TABLE;
+        String queryString = "SELECT * FROM " + JOB_TABLE + " ORDER BY " + COLUMN_WEIGHTED_VALUE + " Desc";
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(queryString, null);
 
@@ -224,7 +225,49 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         cvOld.put(WEIGHT_COLUMN_RSU, rsu);
         cvOld.put(WEIGHT_COLUMN_RELOCATESTIPEND, relocation);
         cvOld.put(WEIGHT_COLUMN_HOLIDAY,holiday);
-        db.update(WEIGHT_JOB_TABLE, cvOld, WEIGHT_COLUMN_ID + "=?", new String[]{"1"});
+        int update = db.update(WEIGHT_JOB_TABLE, cvOld, WEIGHT_COLUMN_ID + "=?", new String[]{"1"});
+        db.close();
+    }
+    public void setWeights() {
+        List<Weight> weightList = new ArrayList<>();
+        String queryString = "SELECT * FROM " + WEIGHT_JOB_TABLE + " WHERE WEIGHTED_ID = 1";
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(queryString, null);
+
+        if (cursor.moveToFirst()){
+            do {
+                int entryID = cursor.getInt(0);
+                int salary = cursor.getInt(1);
+                int bonus = cursor.getInt(2);
+                int rsu = cursor.getInt(3);
+                int relocationstipend = cursor.getInt(4);
+                int holiday = cursor.getInt(5);
+
+
+                Weight.setSalaryWeight(salary);
+                Weight.setBonusWeight(bonus);
+                Weight.setRsuWeight(rsu);
+                Weight.setRelocationStipendWeight(relocationstipend);
+                Weight.setHolidaysWeight(holiday);
+
+            }while (cursor.moveToNext());
+        }
+        else{
+
+        }
+
+        cursor.close();
+        db.close();
+
+    }
+
+    public void updateJobScore(int id ,double score){
+        SQLiteDatabase db = this.getReadableDatabase();
+        ContentValues cvOld = new ContentValues();
+        cvOld.put(COLUMN_WEIGHTED_VALUE, score);
+        System.out.print(cvOld);
+        System.out.print(id);
+        db.update(JOB_TABLE, cvOld, COLUMN_ID + " = ?", new String[]{String.valueOf(id)});
 
         db.close();
     }
