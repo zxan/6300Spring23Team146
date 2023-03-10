@@ -1,4 +1,5 @@
 package edu.gatech.seclass.jobcompare6300.model;
+import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -101,33 +102,26 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
     public boolean updateCurrentJob(Job newCurrentJob) {
         SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues cvOld = new ContentValues();
-        ContentValues cvNew = new ContentValues();
+        ContentValues cv = new ContentValues();
 
-        // Set isCurrentJob to false for the old current job
-        cvOld.put(COLUMN_IS_CURRENT, false);
-        db.update(JOB_TABLE, cvOld, COLUMN_IS_CURRENT + "=?", new String[]{"1"});
+        // Update columns for the new current job
+        cv.put(COLUMN_TITLE, newCurrentJob.getTitle());
+        cv.put(COLUMN_COMPANY, newCurrentJob.getCompany());
+        cv.put(COLUMN_LOCATION, newCurrentJob.getLocation());
+        cv.put(COLUMN_COSTINDEX, newCurrentJob.getCostIndex());
+        cv.put(COLUMN_SALARY, newCurrentJob.getSalary());
+        cv.put(COLUMN_BONUS, newCurrentJob.getBonus());
+        cv.put(COLUMN_RSU, newCurrentJob.getRsu());
+        cv.put(COLUMN_RELOCATESTIPEND, newCurrentJob.getRelocateStipend());
+        cv.put(COLUMN_HOLIDAY, newCurrentJob.getHolidays());
+        cv.put(COLUMN_IS_CURRENT, true);
 
-        // Set isCurrentJob to true for the new current job
-        cvNew.put(COLUMN_ID, newCurrentJob.getId());
-        cvNew.put(COLUMN_TITLE, newCurrentJob.getTitle());
-        cvNew.put(COLUMN_COMPANY, newCurrentJob.getCompany());
-        cvNew.put(COLUMN_LOCATION, newCurrentJob.getLocation());
-        cvNew.put(COLUMN_COSTINDEX, newCurrentJob.getCostIndex());
-        cvNew.put(COLUMN_SALARY, newCurrentJob.getSalary());
-        cvNew.put(COLUMN_BONUS, newCurrentJob.getBonus());
-        cvNew.put(COLUMN_RSU, newCurrentJob.getRsu());
-        cvNew.put(COLUMN_RELOCATESTIPEND, newCurrentJob.getRelocateStipend());
-        cvNew.put(COLUMN_HOLIDAY, newCurrentJob.getHolidays());
-        cvNew.put(COLUMN_IS_CURRENT, true);
+        int rowsAffected = db.update(JOB_TABLE, cv, COLUMN_ID + "=?", new String[] { String.valueOf(newCurrentJob.getId()) });
+        db.close();
 
-        long insert = db.insert(JOB_TABLE, null, cvNew);
-        if (insert == -1) {
-            return false;
-        } else {
-            return true;
-        }
+        return rowsAffected > 0;
     }
+
 
     public Job getJob(int jobId) {
         SQLiteDatabase db = this.getReadableDatabase();
@@ -298,5 +292,29 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         else{
             return false;
         }
+    }
+
+    public boolean hasCurrentJob() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String query = "SELECT * FROM " + JOB_TABLE + " WHERE " + COLUMN_IS_CURRENT + "=1";
+        Cursor cursor = db.rawQuery(query, null);
+        boolean hasCurrentJob = cursor.moveToFirst();
+        cursor.close();
+        return hasCurrentJob;
+    }
+
+    @SuppressLint("Range")
+    public int findCurrentJobID() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        int id = -1;
+        String query = "SELECT " + COLUMN_ID + " FROM " + JOB_TABLE +
+                " WHERE " + COLUMN_IS_CURRENT + " = 1";
+        Cursor cursor = db.rawQuery(query, null);
+        if (cursor.moveToFirst()) {
+            id = cursor.getInt(cursor.getColumnIndex(COLUMN_ID));
+        }
+        cursor.close();
+        db.close();
+        return id;
     }
 }

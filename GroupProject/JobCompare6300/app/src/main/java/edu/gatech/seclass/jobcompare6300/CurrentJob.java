@@ -63,15 +63,28 @@ public class CurrentJob extends AppCompatActivity {
                     int intJobRelocation = Integer.parseInt(editCurrentJobRelocation.getText().toString());
                     int intJobHolidays = Integer.parseInt(editCurrentJobPersonalHolidays.getText().toString());
 
+
                     DataBaseHelper databaseHelper = new DataBaseHelper(CurrentJob.this);
-                    int id = databaseHelper.getNextJobId();
-                    Job currentJob = new Job(id, editCurrentJobTitle.getText().toString(), editCurrentJobCompany.getText().toString(), editCurrentJobLocation.getText().toString(), intJobCol, intJobSalary, intJobBonus, intJobRSU, intJobRelocation, intJobHolidays);
-                    currentJob.setAsCurrentJob();
-                    boolean isCurrentJob = currentJob.getCurrentJob();
-                    boolean success = databaseHelper.addOne(currentJob, isCurrentJob);
-                    Toast.makeText(CurrentJob.this, "Success = " + success, Toast.LENGTH_SHORT).show();
-                    Intent myIntent = new Intent(view.getContext(), MainActivity.class);
-                    startActivity(myIntent);
+
+                    if (databaseHelper.hasCurrentJob() == false){
+                        int id = databaseHelper.getNextJobId();
+                        Job currentJob = new Job(id, editCurrentJobTitle.getText().toString(), editCurrentJobCompany.getText().toString(), editCurrentJobLocation.getText().toString(), intJobCol, intJobSalary, intJobBonus, intJobRSU, intJobRelocation, intJobHolidays);
+                        currentJob.setAsCurrentJob();
+                        boolean isCurrentJob = currentJob.getCurrentJob();
+                        boolean success = databaseHelper.addOne(currentJob, isCurrentJob);
+                        Toast.makeText(CurrentJob.this, "Success = " + success, Toast.LENGTH_SHORT).show();
+                        Intent myIntent = new Intent(view.getContext(), MainActivity.class);
+                        startActivity(myIntent);
+                    }
+                    else{
+                        int id = databaseHelper.findCurrentJobID();
+                        Job currentJob = new Job(id, editCurrentJobTitle.getText().toString(), editCurrentJobCompany.getText().toString(), editCurrentJobLocation.getText().toString(), intJobCol, intJobSalary, intJobBonus, intJobRSU, intJobRelocation, intJobHolidays);
+                        boolean success = databaseHelper.updateCurrentJob(currentJob);
+                        Toast.makeText(CurrentJob.this, "Success = " + success, Toast.LENGTH_SHORT).show();
+                        Intent myIntent = new Intent(view.getContext(), MainActivity.class);
+                        startActivity(myIntent);
+                    }
+
                 }
             }
         });
