@@ -204,13 +204,13 @@ public class CurrentJob extends AppCompatActivity {
             errorFields.add(editCurrentJobRelocation);
         }else {
 
-            if (Integer.valueOf(editCurrentJobRelocation.getText().toString()) <1)  {
-                editCurrentJobRelocation.setError("Number must be between 0-25000000");
+            if (Integer.valueOf(editCurrentJobRelocation.getText().toString()) < 0)  {
+                editCurrentJobRelocation.setError("Number must be between 0-25000");
                 errorFields.add(editCurrentJobRelocation);
             }
 
-            if (Integer.valueOf(editCurrentJobRelocation.getText().toString()) > 25000000) {
-                editCurrentJobRelocation.setError("Number must be between 0-25000000");
+            if (Integer.valueOf(editCurrentJobRelocation.getText().toString()) > 25000) {
+                editCurrentJobRelocation.setError("Number must be between 0-25000");
                 errorFields.add(editCurrentJobRelocation);
             }
         }
