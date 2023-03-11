@@ -125,11 +125,13 @@ public class Job {
     public double getScore() {
 
         double sum = Weight.getSalaryWeight() + Weight.getBonusWeight() + Weight.getRsuWeight() + Weight.getRelocationStipendWeight() + Weight.getHolidaysWeight();
-        double score = Weight.getSalaryWeight() / sum * salary
-                + Weight.getBonusWeight() / sum * bonus
-                + Weight.getRsuWeight() / sum * rsu / 4
+        double AYS = salary * 100 / costIndex;
+        double AYB = bonus * 100 / costIndex;
+        double score = Weight.getSalaryWeight() / sum * AYS
+                + Weight.getBonusWeight() / sum * AYB
+                + Weight.getRsuWeight() / sum * (rsu / 4)
                 + Weight.getRelocationStipendWeight() / sum * relocateStipend
-                + Weight.getHolidaysWeight() / sum * holidays * salary / 260;
+                + Weight.getHolidaysWeight() / sum * (holidays * salary / 260);
         return score;
     }
 

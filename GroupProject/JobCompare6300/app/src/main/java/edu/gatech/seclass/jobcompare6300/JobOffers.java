@@ -131,49 +131,110 @@ public class JobOffers extends AppCompatActivity{
         if (editJobLocation.getText().toString().trim().length() == 0)  {
             editJobLocation.setError("Input cannot be empty");
             errorFields.add(editJobLocation);
+        }else {
+
+            if (!editJobLocation.getText().toString().matches(".*[a-zA-Z].*"))  {
+                editJobLocation.setError("No integers.Please Enter City and State");
+                errorFields.add(editJobLocation);
+            }
         }
 
-        try {
-            int intJobCol = Integer.parseInt(editJobCol.getText().toString());
-        } catch (NumberFormatException e){
-            editJobCol.setError("Input is not integer or is empty");
+        if (editJobCol.getText().toString().trim().length() == 0)  {
+            editJobCol.setError("Value cannot be empty");
             errorFields.add(editJobCol);
+        }else {
+
+            if (Integer.valueOf(editJobCol.getText().toString()) <1)  {
+                editJobCol.setError("Number must be between 1-350");
+                errorFields.add(editJobCol);
+            }
+
+            if (Integer.valueOf(editJobCol.getText().toString()) > 350) {
+                editJobCol.setError("Number must be between 1-350");
+                errorFields.add(editJobCol);
+            }
         }
 
-        try {
-            int intJobSalary = Integer.parseInt(editJobSalary.getText().toString());
-        } catch (NumberFormatException e){
-            editJobSalary.setError("Input is not integer or is empty");
+        if (editJobSalary.getText().toString().trim().length() == 0)  {
+            editJobSalary.setError("Input cannot be empty");
             errorFields.add(editJobSalary);
+        }else {
+
+            if (Integer.valueOf(editJobSalary.getText().toString()) <1)  {
+                editJobSalary.setError("Number must be between 1-25000000");
+                errorFields.add(editJobSalary);
+            }
+
+            if (Integer.valueOf(editJobSalary.getText().toString()) > 25000000) {
+                editJobSalary.setError("Number must be between 1-25000000");
+                errorFields.add(editJobSalary);
+            }
         }
 
-        try {
-            int intJobBonus = Integer.parseInt(editJobBonus.getText().toString());
-        } catch (NumberFormatException e){
-            editJobBonus.setError("Input is not integer or is empty");
+        if (editJobBonus.getText().toString().trim().length() == 0)  {
+            editJobBonus.setError("Input cannot be empty");
             errorFields.add(editJobBonus);
+        }else {
+
+            if (Integer.valueOf(editJobBonus.getText().toString()) <0)  {
+                editJobBonus.setError("Number must be between 0-25000000");
+                errorFields.add(editJobBonus);
+            }
+
+            if (Integer.valueOf(editJobBonus.getText().toString()) > 25000000) {
+                editJobBonus.setError("Number must be between 0-25000000");
+                errorFields.add(editJobBonus);
+            }
         }
 
-        try {
-            int intJobRSU = Integer.parseInt(editJobRsuAward.getText().toString());
-        } catch (NumberFormatException e){
-            editJobRsuAward.setError("Input is not integer or is empty");
+        if (editJobRsuAward.getText().toString().trim().length() == 0)  {
+            editJobRsuAward.setError("Value cannot be empty");
             errorFields.add(editJobRsuAward);
+        }else {
+
+            if (Integer.valueOf(editJobRsuAward.getText().toString()) <0)  {
+                editJobRsuAward.setError("Number must be between 0-25000000");
+                errorFields.add(editJobRsuAward);
+            }
+
+            if (Integer.valueOf(editJobRsuAward.getText().toString()) > 25000000) {
+                editJobRsuAward.setError("Number must be between 0-25000000");
+                errorFields.add(editJobRsuAward);
+            }
         }
 
-        try {
-            int intJobRelocation = Integer.parseInt(editJobRelocation.getText().toString());
-        } catch (NumberFormatException e){
-            editJobRelocation.setError("Input is not integer or is empty");
+        if (editJobRelocation.getText().toString().trim().length() == 0)  {
+            editJobRelocation.setError("Input cannot be empty");
             errorFields.add(editJobRelocation);
+        }else {
+
+            if (Integer.valueOf(editJobRelocation.getText().toString()) <1)  {
+                editJobRelocation.setError("Number must be between 0-25000000");
+                errorFields.add(editJobRelocation);
+            }
+
+            if (Integer.valueOf(editJobRelocation.getText().toString()) > 25000000) {
+                editJobRelocation.setError("Number must be between 0-25000000");
+                errorFields.add(editJobRelocation);
+            }
         }
 
-        try {
-            int intJobHolidays = Integer.parseInt(editJobPersonalHolidays.getText().toString());
-        } catch (NumberFormatException e){
-            editJobPersonalHolidays.setError("Input is not integer or is empty");
+        if (editJobPersonalHolidays.getText().toString().trim().length() == 0)  {
+            editJobPersonalHolidays.setError("Input cannot be empty");
             errorFields.add(editJobPersonalHolidays);
+        }else {
+
+            if (Integer.valueOf(editJobPersonalHolidays.getText().toString()) <0)  {
+                editJobPersonalHolidays.setError("Number must be between 0-20");
+                errorFields.add(editJobPersonalHolidays);
+            }
+
+            if (Integer.valueOf(editJobPersonalHolidays.getText().toString()) > 20) {
+                editJobPersonalHolidays.setError("Number must be between 0-20");
+                errorFields.add(editJobPersonalHolidays);
+            }
         }
+
 
         if (errorFields.size() > 0) {
             // Focus the first EditText view with an error
