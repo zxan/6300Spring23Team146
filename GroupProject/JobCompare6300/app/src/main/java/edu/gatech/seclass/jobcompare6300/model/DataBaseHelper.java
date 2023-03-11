@@ -294,13 +294,17 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         }
     }
 
-    public boolean hasCurrentJob() {
+    public int getJobCount() {
         SQLiteDatabase db = this.getReadableDatabase();
-        String query = "SELECT * FROM " + JOB_TABLE + " WHERE " + COLUMN_IS_CURRENT + "=1";
+        String query = "SELECT COUNT(DISTINCT Id) FROM " + JOB_TABLE;
         Cursor cursor = db.rawQuery(query, null);
-        boolean hasCurrentJob = cursor.moveToFirst();
+        int count = 0;
+        if (cursor.moveToFirst()) {
+            count = cursor.getInt(0);;
+        }
         cursor.close();
-        return hasCurrentJob;
+        db.close();
+        return count;
     }
 
     @SuppressLint("Range")
@@ -316,5 +320,13 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         cursor.close();
         db.close();
         return id;
+    }
+    public boolean hasCurrentJob() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String query = "SELECT * FROM " + JOB_TABLE + " WHERE " + COLUMN_IS_CURRENT + "=1";
+        Cursor cursor = db.rawQuery(query, null);
+        boolean hasCurrentJob = cursor.moveToFirst();
+        cursor.close();
+        return hasCurrentJob;
     }
 }
