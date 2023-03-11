@@ -46,9 +46,9 @@ public class CompareJobs extends AppCompatActivity{
                 job.updateCurrentJobStatus(getContext());
 
                 if (job.isCurrentJob()) {
-                    text1.setText(job.getTitle() + " - " + job.getCompany() + " (Current)");
+                    text1.setText("Title: " +job.getTitle() + "      Company: " + job.getCompany() + " (Current)");
                 } else {
-                    text1.setText(job.getTitle() + " - " + job.getCompany());
+                    text1.setText("Title: " +job.getTitle() + "      Company: " + job.getCompany());
                 }
 
                 if (job.isSelected()) {
