@@ -208,13 +208,13 @@ public class JobOffers extends AppCompatActivity{
             errorFields.add(editJobRelocation);
         }else {
 
-            if (Integer.valueOf(editJobRelocation.getText().toString()) <1)  {
-                editJobRelocation.setError("Number must be between 0-25000000");
+            if (Integer.valueOf(editJobRelocation.getText().toString()) < 0)  {
+                editJobRelocation.setError("Number must be between 0-25000");
                 errorFields.add(editJobRelocation);
             }
 
-            if (Integer.valueOf(editJobRelocation.getText().toString()) > 25000000) {
-                editJobRelocation.setError("Number must be between 0-25000000");
+            if (Integer.valueOf(editJobRelocation.getText().toString()) > 25000) {
+                editJobRelocation.setError("Number must be between 0-25000");
                 errorFields.add(editJobRelocation);
             }
         }
