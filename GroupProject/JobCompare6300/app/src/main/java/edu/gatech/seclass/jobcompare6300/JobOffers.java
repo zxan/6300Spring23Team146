@@ -47,6 +47,8 @@ public class JobOffers extends AppCompatActivity{
         editJobPersonalHolidays = findViewById(R.id.currentJobOfferPTO);
 
 
+
+
         saveJobOffer.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 if (invalidInput()) {
@@ -85,21 +87,31 @@ public class JobOffers extends AppCompatActivity{
             public void onClick(View view) {
                 List<Integer> selectedIds = new ArrayList<>();
                 int id = 0;
-
-                for (int i = 0; i < everyone.size(); i++) {
-                    Job job = everyone.get(i);
-                    int jobId = job.getId();
-                    boolean isCurrent = dataBaseHelper.isCurrentJobStatusById(jobId);
-                    if (isCurrent) {
-                        selectedIds.add(job.getId());
-                    } else if (jobId > id) {
-                        id = jobId;
+                int count = dataBaseHelper.getJobCount();
+                Boolean hasCurrent = dataBaseHelper.hasCurrentJob();
+                if(!hasCurrent){
+                    compareJobOffer.setEnabled(false);
+                    Toast.makeText(JobOffers.this, "Please enter current job to compare. ",Toast.LENGTH_LONG).show();
+                } else if(count < 2 ){
+                    compareJobOffer.setEnabled(false);
+                    Toast.makeText(JobOffers.this, "Two jobs must exist to compare ",Toast.LENGTH_LONG).show();
+                }else {
+                    for (int i = 0; i < everyone.size(); i++) {
+                        Job job = everyone.get(i);
+                        int jobId = job.getId();
+                        boolean isCurrent = dataBaseHelper.isCurrentJobStatusById(jobId);
+                        if (isCurrent) {
+                            selectedIds.add(job.getId());
+                        } else if (jobId > id) {
+                            id = jobId;
+                        }
                     }
+
+                    selectedIds.add(id);
+                    Intent myIntent = new Intent(view.getContext(), JobComparison.class);
+                    myIntent.putIntegerArrayListExtra("selectedIds", (ArrayList<Integer>) selectedIds);
+                    startActivity(myIntent);
                 }
-                selectedIds.add(id);
-                Intent myIntent = new Intent(view.getContext(), JobComparison.class);
-                myIntent.putIntegerArrayListExtra("selectedIds", (ArrayList<Integer>) selectedIds);
-                startActivity(myIntent);
             }
         });
     }
