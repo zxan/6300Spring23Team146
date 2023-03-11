@@ -35,7 +35,11 @@ public class ComparisonSettings extends AppCompatActivity{
         updateRelocationWeight = findViewById(R.id.textComparisonRelocationWeight);
         updatePTOWeight = findViewById(R.id.textComparisonPTOWeight);
 
-
+        updateSalaryWeight.setText(String.valueOf(Weight.getSalaryWeight()));
+        updateBonusWeight.setText(String.valueOf(Weight.getBonusWeight()));
+        updateRSUWeight.setText(String.valueOf(Weight.getRsuWeight()));
+        updateRelocationWeight.setText(String.valueOf(Weight.getRelocationStipendWeight()));
+        updatePTOWeight.setText(String.valueOf(Weight.getHolidaysWeight()));
 
         returnSave.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
