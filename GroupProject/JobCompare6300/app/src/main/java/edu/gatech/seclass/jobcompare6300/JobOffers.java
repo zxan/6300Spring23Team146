@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -26,6 +27,8 @@ public class JobOffers extends AppCompatActivity{
     private EditText editJobRsuAward;
     private EditText editJobRelocation;
     private EditText editJobPersonalHolidays;
+    private TextView lastSavedOffer;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,9 +48,14 @@ public class JobOffers extends AppCompatActivity{
         editJobRsuAward = findViewById(R.id.currentJobOfferRSU);
         editJobRelocation = findViewById(R.id.currentJobOfferRelocation);
         editJobPersonalHolidays = findViewById(R.id.currentJobOfferPTO);
+        lastSavedOffer = findViewById(R.id.textLastSavedOffer);
 
-
-
+        String lastOfferInfo = "Last Saved Offer: ";
+        Job lastOffer = dataBaseHelper.getLastOffer();
+        if (lastOffer != null) {
+            lastOfferInfo = lastOfferInfo + lastOffer.getTitle() + ", " +  lastOffer.getCompany();
+        }
+        lastSavedOffer.setText(lastOfferInfo);
 
         saveJobOffer.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
@@ -69,6 +77,7 @@ public class JobOffers extends AppCompatActivity{
                     Toast.makeText(JobOffers.this, "Success = " + success, Toast.LENGTH_SHORT).show();
                     Intent myIntent = new Intent(view.getContext(), JobOffers.class);
                     startActivity(myIntent);
+                    lastSavedOffer.setText(String.format("Last Saved Offer: %s, %s", job.getTitle(), job.getCompany()));
                     finish();  // Finish the activity
                 }
 

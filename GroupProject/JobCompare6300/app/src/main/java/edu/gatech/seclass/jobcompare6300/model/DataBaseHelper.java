@@ -329,4 +329,18 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         cursor.close();
         return hasCurrentJob;
     }
+
+    public Job getLastOffer() {
+        List<Job> jobs = getEveryone();
+        jobs.sort((a, b) -> b.getId() - a.getId());
+
+        Job lastOffer = null;
+        int size = jobs.size();
+        if (size > 0 && !jobs.get(0).isCurrentJob()) {
+            lastOffer = jobs.get(0);
+        } else if (size > 1) {
+            lastOffer = jobs.get(1);
+        }
+        return lastOffer;
+    }
 }
