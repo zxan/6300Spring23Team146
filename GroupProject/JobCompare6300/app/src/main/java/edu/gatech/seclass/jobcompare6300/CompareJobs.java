@@ -46,9 +46,9 @@ public class CompareJobs extends AppCompatActivity{
                 job.updateCurrentJobStatus(getContext());
 
                 if (job.isCurrentJob()) {
-                    text1.setText(job.getTitle() + " - " + job.getCompany() + " (Current)");
+                    text1.setText("Title: " +job.getTitle() + "      Company: " + job.getCompany() + " (Current)");
                 } else {
-                    text1.setText(job.getTitle() + " - " + job.getCompany());
+                    text1.setText("Title: " +job.getTitle() + "      Company: " + job.getCompany());
                 }
 
                 if (job.isSelected()) {
@@ -68,6 +68,7 @@ public class CompareJobs extends AppCompatActivity{
 
                 // Disable the click event if two jobs are already selected
                 if (numSelectedJobs == 2) {
+                    compareJobs.setEnabled(true);
                     if (job.isSelected()) {
                         text1.setEnabled(true);
                         text1.setOnClickListener(new View.OnClickListener() {
@@ -80,6 +81,7 @@ public class CompareJobs extends AppCompatActivity{
                         text1.setEnabled(false);
                     }
                 } else {
+                    compareJobs.setEnabled(false);
                     text1.setEnabled(true);
                     text1.setOnClickListener(new View.OnClickListener() {
                         public void onClick(View view) {
@@ -95,7 +97,6 @@ public class CompareJobs extends AppCompatActivity{
         };
 
         lv_text.setAdapter(jobArrayAdapter);
-
 
         compareJobs.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {

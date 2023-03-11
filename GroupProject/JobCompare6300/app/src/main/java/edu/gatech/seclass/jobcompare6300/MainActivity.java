@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
+
 import edu.gatech.seclass.jobcompare6300.model.DataBaseHelper;
 
 public class MainActivity extends AppCompatActivity {
@@ -16,6 +18,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         DataBaseHelper databaseHelper = new DataBaseHelper(MainActivity.this);
         databaseHelper.insertInitialWeights();
+        databaseHelper.setWeights();
+
         Button currentJob = (Button) findViewById(R.id.EditJobButtonID);
         Button jobOffer = (Button) findViewById(R.id.JobOfferButtonID);
         Button comparisonSettings = (Button) findViewById(R.id.ComparisonSettingsButtonID);
@@ -44,8 +48,14 @@ public class MainActivity extends AppCompatActivity {
 
         compareJobs.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                Intent myIntent = new Intent(view.getContext(), CompareJobs.class);
-                startActivity(myIntent);
+                int count = databaseHelper.getJobCount();
+                if(count < 2 ){
+                    compareJobs.setEnabled(false);
+                    Toast.makeText(MainActivity.this, "Two jobs must exist to compare ",Toast.LENGTH_LONG).show();
+                }else {
+                    Intent myIntent = new Intent(view.getContext(), CompareJobs.class);
+                    startActivity(myIntent);
+                }
             }
         });
     }

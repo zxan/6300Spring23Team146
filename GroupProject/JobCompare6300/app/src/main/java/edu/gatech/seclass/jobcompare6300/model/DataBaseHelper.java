@@ -1,4 +1,5 @@
 package edu.gatech.seclass.jobcompare6300.model;
+import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -76,6 +77,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         cv.put(COLUMN_RELOCATESTIPEND, JobDB.getRelocateStipend());
         cv.put(COLUMN_HOLIDAY, JobDB.getHolidays());
         cv.put(COLUMN_IS_CURRENT, isCurrentJob ? 1 : 0);
+        cv.put(COLUMN_WEIGHTED_VALUE, JobDB.getScore());
 
         long insert = db.insert(JOB_TABLE, null, cv);
         if (insert == -1) {
@@ -100,33 +102,26 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
     public boolean updateCurrentJob(Job newCurrentJob) {
         SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues cvOld = new ContentValues();
-        ContentValues cvNew = new ContentValues();
+        ContentValues cv = new ContentValues();
 
-        // Set isCurrentJob to false for the old current job
-        cvOld.put(COLUMN_IS_CURRENT, false);
-        db.update(JOB_TABLE, cvOld, COLUMN_IS_CURRENT + "=?", new String[]{"1"});
+        // Update columns for the new current job
+        cv.put(COLUMN_TITLE, newCurrentJob.getTitle());
+        cv.put(COLUMN_COMPANY, newCurrentJob.getCompany());
+        cv.put(COLUMN_LOCATION, newCurrentJob.getLocation());
+        cv.put(COLUMN_COSTINDEX, newCurrentJob.getCostIndex());
+        cv.put(COLUMN_SALARY, newCurrentJob.getSalary());
+        cv.put(COLUMN_BONUS, newCurrentJob.getBonus());
+        cv.put(COLUMN_RSU, newCurrentJob.getRsu());
+        cv.put(COLUMN_RELOCATESTIPEND, newCurrentJob.getRelocateStipend());
+        cv.put(COLUMN_HOLIDAY, newCurrentJob.getHolidays());
+        cv.put(COLUMN_IS_CURRENT, true);
 
-        // Set isCurrentJob to true for the new current job
-        cvNew.put(COLUMN_ID, newCurrentJob.getId());
-        cvNew.put(COLUMN_TITLE, newCurrentJob.getTitle());
-        cvNew.put(COLUMN_COMPANY, newCurrentJob.getCompany());
-        cvNew.put(COLUMN_LOCATION, newCurrentJob.getLocation());
-        cvNew.put(COLUMN_COSTINDEX, newCurrentJob.getCostIndex());
-        cvNew.put(COLUMN_SALARY, newCurrentJob.getSalary());
-        cvNew.put(COLUMN_BONUS, newCurrentJob.getBonus());
-        cvNew.put(COLUMN_RSU, newCurrentJob.getRsu());
-        cvNew.put(COLUMN_RELOCATESTIPEND, newCurrentJob.getRelocateStipend());
-        cvNew.put(COLUMN_HOLIDAY, newCurrentJob.getHolidays());
-        cvNew.put(COLUMN_IS_CURRENT, true);
+        int rowsAffected = db.update(JOB_TABLE, cv, COLUMN_ID + "=?", new String[] { String.valueOf(newCurrentJob.getId()) });
+        db.close();
 
-        long insert = db.insert(JOB_TABLE, null, cvNew);
-        if (insert == -1) {
-            return false;
-        } else {
-            return true;
-        }
+        return rowsAffected > 0;
     }
+
 
     public Job getJob(int jobId) {
         SQLiteDatabase db = this.getReadableDatabase();
@@ -151,7 +146,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
                 cursor.getInt(7),
                 cursor.getInt(8),
                 cursor.getInt(9)
-        );
+                );
 
         cursor.close();
         db.close();
@@ -161,7 +156,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
     public List<Job> getEveryone() {
         List<Job> returnList = new ArrayList<>();
-        String queryString = "SELECT * FROM " + JOB_TABLE;
+        String queryString = "SELECT * FROM " + JOB_TABLE + " ORDER BY " + COLUMN_WEIGHTED_VALUE + " Desc";
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(queryString, null);
 
@@ -194,6 +189,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         return returnList;
     }
 
+
     public void insertInitialWeights(){
         Cursor c = null;
         String query = "SELECT " + WEIGHT_COLUMN_ID + ","+WEIGHT_COLUMN_SALARY+ ","+WEIGHT_COLUMN_BONUS+ ","+WEIGHT_COLUMN_RSU+ ","+WEIGHT_COLUMN_RELOCATESTIPEND+","+WEIGHT_COLUMN_HOLIDAY+" FROM " + WEIGHT_JOB_TABLE;
@@ -224,8 +220,127 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         cvOld.put(WEIGHT_COLUMN_RSU, rsu);
         cvOld.put(WEIGHT_COLUMN_RELOCATESTIPEND, relocation);
         cvOld.put(WEIGHT_COLUMN_HOLIDAY,holiday);
-        db.update(WEIGHT_JOB_TABLE, cvOld, WEIGHT_COLUMN_ID + "=?", new String[]{"1"});
+        int update = db.update(WEIGHT_JOB_TABLE, cvOld, WEIGHT_COLUMN_ID + "=?", new String[]{"1"});
+        db.close();
+    }
+    public void setWeights() {
+        List<Weight> weightList = new ArrayList<>();
+        String queryString = "SELECT * FROM " + WEIGHT_JOB_TABLE + " WHERE WEIGHTED_ID = 1";
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(queryString, null);
+
+        if (cursor.moveToFirst()){
+            do {
+                int entryID = cursor.getInt(0);
+                int salary = cursor.getInt(1);
+                int bonus = cursor.getInt(2);
+                int rsu = cursor.getInt(3);
+                int relocationstipend = cursor.getInt(4);
+                int holiday = cursor.getInt(5);
+
+
+                Weight.setSalaryWeight(salary);
+                Weight.setBonusWeight(bonus);
+                Weight.setRsuWeight(rsu);
+                Weight.setRelocationStipendWeight(relocationstipend);
+                Weight.setHolidaysWeight(holiday);
+
+            }while (cursor.moveToNext());
+        }
+        else{
+
+        }
+
+        cursor.close();
+        db.close();
+
+    }
+
+    public void updateJobScore(int id ,double score){
+        SQLiteDatabase db = this.getReadableDatabase();
+        ContentValues cvOld = new ContentValues();
+        cvOld.put(COLUMN_WEIGHTED_VALUE, score);
+        System.out.print(cvOld);
+        System.out.print(id);
+        db.update(JOB_TABLE, cvOld, COLUMN_ID + " = ?", new String[]{String.valueOf(id)});
 
         db.close();
+    }
+    public  boolean isCurrentJobStatusById(int id) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        int bool = 0;
+        Cursor cursor = db.rawQuery("SELECT *  FROM " + JOB_TABLE +
+                " WHERE " + COLUMN_ID + " = " + id , null);
+
+        if (cursor.moveToFirst()){
+            do {
+                int iscurrent = cursor.getInt(10);
+                if(iscurrent == 1){
+                    bool = 1;
+                }
+
+            }while (cursor.moveToNext());
+        }
+        else{
+
+        }
+        cursor.close();
+        db.close();
+        if (bool ==1){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
+    public int getJobCount() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String query = "SELECT COUNT(DISTINCT Id) FROM " + JOB_TABLE;
+        Cursor cursor = db.rawQuery(query, null);
+        int count = 0;
+        if (cursor.moveToFirst()) {
+            count = cursor.getInt(0);;
+        }
+        cursor.close();
+        db.close();
+        return count;
+    }
+
+    @SuppressLint("Range")
+    public int findCurrentJobID() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        int id = -1;
+        String query = "SELECT " + COLUMN_ID + " FROM " + JOB_TABLE +
+                " WHERE " + COLUMN_IS_CURRENT + " = 1";
+        Cursor cursor = db.rawQuery(query, null);
+        if (cursor.moveToFirst()) {
+            id = cursor.getInt(cursor.getColumnIndex(COLUMN_ID));
+        }
+        cursor.close();
+        db.close();
+        return id;
+    }
+    public boolean hasCurrentJob() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String query = "SELECT * FROM " + JOB_TABLE + " WHERE " + COLUMN_IS_CURRENT + "=1";
+        Cursor cursor = db.rawQuery(query, null);
+        boolean hasCurrentJob = cursor.moveToFirst();
+        cursor.close();
+        return hasCurrentJob;
+    }
+
+    public Job getLastOffer() {
+        List<Job> jobs = getEveryone();
+        jobs.sort((a, b) -> b.getId() - a.getId());
+
+        Job lastOffer = null;
+        int size = jobs.size();
+        if (size > 0 && !jobs.get(0).isCurrentJob()) {
+            lastOffer = jobs.get(0);
+        } else if (size > 1) {
+            lastOffer = jobs.get(1);
+        }
+        return lastOffer;
     }
 }
