@@ -131,7 +131,7 @@ public class Job {
                 + Weight.getBonusWeight() / sum * AYB
                 + Weight.getRsuWeight() / sum * (rsu / 4)
                 + Weight.getRelocationStipendWeight() / sum * relocateStipend
-                + Weight.getHolidaysWeight() / sum * (holidays * salary / 260);
+                + Weight.getHolidaysWeight() / sum * (holidays * AYS / 260);
         return score;
     }
 
