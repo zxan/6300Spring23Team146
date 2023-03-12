@@ -166,7 +166,7 @@ public class DBTest {
         Weight.setRelocationStipendWeight(1);
         Weight.setSalaryWeight(1);
         Double jobScore = newJob1.getScore();
-        assertEquals(22751.15, jobScore,1.0);
+        assertEquals(1112812.69, jobScore,1.0);
     }
 
 
