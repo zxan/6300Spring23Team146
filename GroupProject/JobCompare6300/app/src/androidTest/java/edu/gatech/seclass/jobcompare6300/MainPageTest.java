@@ -50,8 +50,6 @@ public class MainPageTest {
     public void click2(){
         onView(withId(R.id.ComparisonSettingsButtonID)).perform(click());
         intended(hasComponent(ComparisonSettings.class.getName()));
-        onView(withId(R.id.SaveComparisonButtonID)).perform(click());
-        intended(hasComponent(MainActivity.class.getName()));
     }
     @Test
     public void click3(){

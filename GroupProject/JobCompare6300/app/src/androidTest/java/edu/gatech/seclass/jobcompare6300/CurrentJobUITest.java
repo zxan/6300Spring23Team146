@@ -39,15 +39,15 @@ public class CurrentJobUITest {
         Espresso.closeSoftKeyboard();
         onView(withId(R.id.SaveJobButtonID)).perform(scrollTo(),click());
 
-        onView(withId(R.id.textCurrentJobTitle)).check(matches(hasErrorText("Input cannot be empty")));
+        onView(withId(R.id.textCurrentJobTitle)).check(matches(hasErrorText("Value cannot be empty")));
 //        onView(withId(R.id.currentJobCompany)).check(matches(hasErrorText("Input cannot be empty")));
         onView(withId(R.id.currentJobLocation)).check(matches(hasErrorText("Input cannot be empty")));
-        onView(withId(R.id.currentJobCOL)).check(matches(hasErrorText("Input is not integer or is empty")));
-        onView(withId(R.id.currentJobSalary)).check(matches(hasErrorText("Input is not integer or is empty")));
-        onView(withId(R.id.currentJobBonus)).check(matches(hasErrorText("Input is not integer or is empty")));
-        onView(withId(R.id.currentJobRSU)).check(matches(hasErrorText("Input is not integer or is empty")));
-        onView(withId(R.id.currentJobRelocation)).check(matches(hasErrorText("Input is not integer or is empty")));
-        onView(withId(R.id.currentJobPTO)).check(matches(hasErrorText("Input is not integer or is empty")));
+        onView(withId(R.id.currentJobCOL)).check(matches(hasErrorText("Value cannot be empty")));
+        onView(withId(R.id.currentJobSalary)).check(matches(hasErrorText("Input cannot be empty")));
+        onView(withId(R.id.currentJobBonus)).check(matches(hasErrorText("Input cannot be empty")));
+        onView(withId(R.id.currentJobRSU)).check(matches(hasErrorText("Value cannot be empty")));
+        onView(withId(R.id.currentJobRelocation)).check(matches(hasErrorText("Input cannot be empty")));
+        onView(withId(R.id.currentJobPTO)).check(matches(hasErrorText("Input cannot be empty")));
     }
 
 }

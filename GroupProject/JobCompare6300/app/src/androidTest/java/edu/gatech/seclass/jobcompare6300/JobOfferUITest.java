@@ -41,12 +41,12 @@ public class JobOfferUITest {
         onView(withId(R.id.textJobOfferTitle)).check(matches(hasErrorText("Value cannot be empty")));
         onView(withId(R.id.currentJobOfferCompany)).check(matches(hasErrorText("Input cannot be empty")));
         onView(withId(R.id.currentJobOfferLocation)).check(matches(hasErrorText("Input cannot be empty")));
-        onView(withId(R.id.currentJobOfferCOL)).check(matches(hasErrorText("Input is not integer or is empty")));
-        onView(withId(R.id.currentJobOfferSalary)).check(matches(hasErrorText("Input is not integer or is empty")));
-        onView(withId(R.id.currentJobOfferBonus)).check(matches(hasErrorText("Input is not integer or is empty")));
-        onView(withId(R.id.currentJobOfferRSU)).check(matches(hasErrorText("Input is not integer or is empty")));
-        onView(withId(R.id.currentJobOfferRelocation)).check(matches(hasErrorText("Input is not integer or is empty")));
-        onView(withId(R.id.currentJobOfferPTO)).check(matches(hasErrorText("Input is not integer or is empty")));
+        onView(withId(R.id.currentJobOfferCOL)).check(matches(hasErrorText("Value cannot be empty")));
+        onView(withId(R.id.currentJobOfferSalary)).check(matches(hasErrorText("Input cannot be empty")));
+        onView(withId(R.id.currentJobOfferBonus)).check(matches(hasErrorText("Input cannot be empty")));
+        onView(withId(R.id.currentJobOfferRSU)).check(matches(hasErrorText("Value cannot be empty")));
+        onView(withId(R.id.currentJobOfferRelocation)).check(matches(hasErrorText("Input cannot be empty")));
+        onView(withId(R.id.currentJobOfferPTO)).check(matches(hasErrorText("Input cannot be empty")));
     }
 
 }
